@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,19 @@ sum: number = 0;
 // variable to control the display result div
 flag: boolean = true;
 //function to do the sum
-doSum()
+doSum(frm: FormGroup)
 {
- this.sum = parseInt(this.num1) + parseInt(this.num2);
- //value of the flag is changed
- this.flag = false;
+  if(frm.invalid)
+  {
+    // mark its input elements as touched.
+    for(let i in frm.controls)
+        frm.controls[i].markAsTouched();
+  }
+  else
+  {
+  this.sum = parseInt(this.num1) + parseInt(this.num2);
+  //value of the flag is changed
+  this.flag = false;
+  }
 }
 }
