@@ -1,17 +1,23 @@
 <form class="form-horizontal">
   <div class="form-group">
     <label>Name</label>
-    <input type="text" name="product.name" class="form-control">
+    <input type="text" name="product.name" 
+    class="form-control" [(ngModel)]="product.name">
   </div>
   <div class="form-group">
     <label>Brand</label>
-    <input type="text" name="product.brand" class="form-control">
+    <input type="text" name="product.brand" 
+    class="form-control" [(ngModel)]="product.brand">
   </div>
   <div class="form-group">
     <label>Price</label>
-    <input type="text" name="product.price" class="form-control">
+    <input type="text" name="product.price" 
+    class="form-control" [(ngModel)]="product.price">
   </div>
   <div class="form-group">
-    <button type="button" class="btn btn-primary">Add</button>
+    <button type="button" class="btn btn-primary"
+    (click)="saveProduct()" *ngIf="productSvc.editIndex == -1">Add</button>
+    <button type="button" class="btn btn-primary"
+    (click)="update()" *ngIf="productSvc.editIndex != -1">Update</button>
   </div>
 </form>

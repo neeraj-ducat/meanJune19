@@ -1,3 +1,17 @@
-<p>
-  view-product works!
-</p>
+<table class="table table-bordered table-stripted table-hover">
+  <thead>
+    <tr>
+      <td>Name</td><td>Brand</td><td>Price</td>
+      <td>Action</td>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of productSvc.products">
+      <td>{{p.name}}</td><td>{{p.brand}}</td>
+      <td>{{p.price}}</td>
+      <td><button type="button"  class="btn btn-link" (click)="remove(p)">delete</button>&nbsp;
+        <button type="button"  class="btn btn-link" (click)="edit(p)">edit</button></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../product.service';
+import { Product } from '../product.model';
 
 @Component({
   selector: 'app-view-product',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewProductComponent implements OnInit {
 
-  constructor() { }
+  constructor(private productSvc: ProductService) { }
 
   ngOnInit() {
   }
 
+  remove(p: Product) {
+    this.productSvc.remove(p);
+  }
+  edit(p: Product) {
+    this.productSvc.edit(p);
+  }
 }
