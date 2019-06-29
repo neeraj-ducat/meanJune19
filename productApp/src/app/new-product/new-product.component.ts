@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Product } from '../product.model';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
   selector: 'app-new-product',
@@ -11,7 +12,8 @@ export class NewProductComponent implements OnInit {
 
   // object to receive form data
   product: Product;
-  constructor(private productSvc: ProductService) {
+  constructor(private productSvc: ProductService,
+    private alertService: AlertService) {
     if (productSvc.editIndex == -1)
         this.product = new Product();
     else
@@ -26,6 +28,8 @@ export class NewProductComponent implements OnInit {
     // A copy of the product object is created
     const toBeAdded = Object.assign({}, this.product);
     this.productSvc.add(toBeAdded);
+    // alert message is displayed.
+    this.alertService.success('Successfully added.');
     this.clearForm();
   }
   clearForm() {
@@ -37,5 +41,6 @@ export class NewProductComponent implements OnInit {
     const toBeUpdated = Object.assign({}, this.product);
     this.productSvc.update(toBeUpdated);
     this.clearForm();
+    this.alertService.success('Successfully updated.');
   }
 }
