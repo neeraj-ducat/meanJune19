@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-heading bg-info">
+      <h3>Child Component Three</h3>
+    </div>
+    <div class="card-body">
+     <form class="form form-horizontal">
+      <div class="form-group">
+        <label>Value to be Sent to the parent:</label>
+        <input type="text" class="form-control"
+        name="toBeSent" [(ngModel)]="toBeSent">
+      </div>
+      <div class="form-group">
+         <button type="button" class="btn btn-primary"
+         (click)="send()">
+           Send to Parent
+         </button>
+      </div>
+     </form>
+    </div>
+  </div>

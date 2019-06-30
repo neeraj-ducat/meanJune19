@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-heading bg-primary">
+      <h3>Parent Component</h3>
+    </div>
+    <div class="card-body">
+     <form class="form form-horizontal">
+      <div class="form-group">
+        <label>Value to be Sent to childs:</label>
+        <input type="text" class="form-control"
+        name="toBeSent" [(ngModel)]="toBeSent">
+      </div>
+      <div class="form-group">
+         <button type="button" class="btn btn-primary"
+         (click)="send()">
+           Send to Childs
+         </button>
+      </div>
+     </form>
+     <p>Parent Value: {{toBeSent}}</p>
+     <p>Received from Child Three: {{received}}</p>
+    </div>
+  </div>
+  <hr/>
+  <app-three (valueChanged)="receive($event)"></app-three>
+  <hr/>
+  <app-two #two></app-two>
+  <hr/>
+  <app-one [toBeReceived]="toBeSent"></app-one>
+  
