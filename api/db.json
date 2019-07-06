@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Neeraj",
+      "mailId": "a@b.com",
+      "password": "1234"
+    },
+    {
+      "id": 2,
+      "name": "Amit",
+      "mailId": "amit@gmail.com",
+      "password": "4567"
+    },
+    {
+      "id": 3,
+      "name": "Vipul",
+      "mailId": "vipul@gmail.com",
+      "password": "abcd"
+    },
+    {
+      "id": 4,
+      "name": "Raman",
+      "mailId": "raman@gmail.com",
+      "password": "sharma"
+    },
+    {
+      "name": "Akshay",
+      "mailId": "akshay@gmail.com",
+      "password": "12as",
+      "id": 5
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<table class="table table-bordered table-striped table-hover">
+<tr>
+ <td>Name</td> <td>MailId</td> <td>Action</td> 
+</tr>
+<tr *ngFor="let user of userService.users">
+    <td>{{user.name | uppercase}}</td> 
+    <td>{{user.mailId}}</td> 
+    <td><button type="button" class="btn btn-link">Edit</button></td> 
+</tr>
+</table>
