@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Express Web App</title>
+    </head>
+    <body>
+        <div id="header">
+            <img src="images/logo.png" width="15%" height="10%">
+        </div>
+        <hr/>
+        <div id="contents">
+            <form action="newUser" method="post">
+                Name <input type="text" name="name"><br/>
+                MailId <input type="text" name="mailId"><br/>
+                Password <input type="password" name="password"><br/>
+                <input type="submit" value="Add User">
+            </form>
+        </div>
+        <div>
+            <form action="/profile" method="post" enctype="multipart/form-data">
+                <input type="file" name="avatar" /> <br/>
+            <input type="submit" value="Upload Image">
+            </form>
+        </div>
+        <hr/>
+        <div id="footer">
+            <p style="padding-left:300px;">&copy; Ducat, All rights reserved.</p>
+        </div>
+    </body>
+</html>
