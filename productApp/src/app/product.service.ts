@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Product } from './product.model';
 import { Router } from '@angular/router';
 import {LocalStorageService} from 'ngx-webstorage';
+import { HttpClient } from '@angular/common/http';
+import {environment} from '../environments/environment';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,33 +19,28 @@ export class ProductService {
   // a counter variable to generate unique id for each product
   counter: number = 0;
   constructor(private router: Router,
-    private localStorage: LocalStorageService) { 
-
-    // Fetch the products from the LocalStorage.
-    this.products = 
-      this.localStorage.retrieve('products'); 
-    // If no products are loaded, then create an empty array
-    if(! this.products)
+    private localStorage: LocalStorageService,
+    
+  private http: HttpClient) { 
       this.products = Array();
-
   }
+
   syncProducts()
   {
     this.localStorage.store('products',this.products);
   }
-  add(p: Product) {
-    p.id = ++this.counter;
-    this.products.push(p);
-    // Products are updated in the LocalStorage.
-    this.syncProducts();
+  fetch() :Observable <Product[]>
+  {
+  return this.http.get<Product[]>(environment.api_url);  
   }
-  remove(p: Product) {
-   // index of the product in the array is obtained
-    const index = this.products.indexOf(p);
-    // using the index, element is removed from the array
-    this.products.splice(index, 1);
-    // Products are updated in the LocalStorage.
-    this.syncProducts();
+  add(p: Product) :Observable <string>
+  {
+  return this.http.post<string>(environment.api_url,p);  
+  }
+  remove(p: Product):Observable <string> {
+    let url = environment.api_url+"/"+p._id;
+    return this.http.delete<string>(url);  
+ 
   }
   edit(p: Product) {
     // index of the product to be updated is obtained
@@ -49,14 +48,7 @@ export class ProductService {
     // route is changed to the new component.
     this.router.navigate(['new']); 
    }
-   update(p: Product) {
-    // array element is updated
-    this.products.splice(this.editIndex,1,p);
-    // Products are updated in the LocalStorage.
-    this.syncProducts();
-    // edit index is changed to -1
-    this.editIndex = -1;
-    // route is changed to the view component.
-    this.router.navigate(['view']); 
-   }
+   update(p: Product) :Observable <string>{
+    return this.http.put<string>(environment.api_url,p);  
+  }
 }

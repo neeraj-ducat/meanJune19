@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { NewProductComponent } from './new-product/new-product.component';
 import {NgxWebstorageModule} from 'ngx-webstorage';
+import {HttpClientModule} from '@angular/common/http';
 // Import BrowserAnimationsModule
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
  
@@ -22,6 +23,7 @@ import { AlertModule } from 'ngx-alerts';
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     NgxWebstorageModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 5000, position: 'right'})
   ],

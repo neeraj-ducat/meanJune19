@@ -3,21 +3,21 @@ const express = require('express');
 // body-parser is imported
 const bodyparser = require('body-parser');
 // express object is created
- const app = express();
-
- // Array to store emp objects
- const emps = [
-     {name: 'Amit',job: 'Trainee', salary: 25000},
-     {name: 'Raman',job: 'Trainer', salary: 65000},
-     {name: 'Kapil',job: 'Accountnat', salary: 40000},
- ];
-/*
-// middle ware is defined. 
-let bodySetter = function(req, res,next) {
-    req.body={dummy: 'It is set by my middleware'};
-    next();
-}
-*/
+const app = express();
+// mongoose is imported
+const mongoose = require('mongoose');
+// Create connection to the mongo database.
+mongoose.connect('mongodb://localhost:27017/ducat');
+// Create a mongoose model object to represent the 
+// Documents to be saved, updated, deleted or fetched.
+const Emp = mongoose.model('emps',{
+    name: String,
+    job: String,
+    salary: Number
+  });
+// ObjectId class is imported to execute query on the basis
+// of id
+const ObjectId = mongoose.Types.ObjectId;
 
 // middleware is registered with the express object.
 // app.use(bodySetter);
@@ -27,47 +27,44 @@ app.use(bodyparser.json());
 
  // To save an employee
  app.post('/employees',function(req,res){
-     let emp = req.body;
-     emps.push(emp);
-     res.json({result: 'successfully saved.'});
+     let emp = new Emp(req.body);
+     emp.save().then(()=>{
+        res.json({result: 'successfully saved.'});
+     });
+    
+    
  });
 
 // To update an employee
 app.put('/employees',function(req,res){
     let emp = req.body;
-    let name = emp.name;
-    console.log('Details of '+name+' will be updated.');
-    for(let e of emps)
-     {
-         if (e.name === name)
-         {
-             e.job = emp.job;
-             e.salary = emp.salary;
-             break;
-         }
-     }
-     res.json({result: 'successfully updated.'});
+    console.log("To be updated: ",emp);
+    Emp.updateOne({_id: ObjectId(emp._id)},{$set: {name: emp.name, job: emp.job, salary: emp.salary}})
+        .then((result)=>{
+            console.log(result);
+            res.json({result: 'successfully updated.'});
+        });
+   
+     
 });
 
 // To remove an employee
-app.delete('/employees/:name',function(req,res){
-    let name = req.params['name'];
-    console.log('Emp '+name+' will be deleted.');
-    for(let emp of emps)
-     {
-         if (emp.name === name)
-         {
-             emps.splice(emps.indexOf(emp),1);
-             break;
-         }
-     }
-    res.json({result: 'successfully deleted.'});
+app.delete('/employees/:id',function(req,res){
+    let id = req.params['id'];
+    Emp.remove({_id: ObjectId(id)})
+        .then(()=>{
+            res.json({result: 'successfully removed.'});
+        });
+    
+   
 });
 
  // To save an employee
  app.get('/employees',function(req,res){
     //request processing code.
-    res.json({result: emps});
+    Emp.find().then(result => {
+        res.json(result);
+    });
 });
 
  // server is started.
